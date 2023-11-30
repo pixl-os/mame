@@ -685,12 +685,13 @@ roland/roland_tr909.cpp
 roland/roland_u20.cpp
 rolm/r9751.cpp
 sage/sage2.cpp
-saitek/ccompan.cpp
 saitek/chesstrv.cpp
+saitek/companion.cpp
+saitek/companion2.cpp
 saitek/corona.cpp
 saitek/cp2000.cpp
 saitek/delta1.cpp
-saitek/exchess.cpp
+saitek/exechess.cpp
 saitek/intchess.cpp
 saitek/leonardo.cpp
 saitek/mark5.cpp

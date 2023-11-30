@@ -1642,7 +1642,8 @@ project "portaudio"
 				"-Wno-incompatible-pointer-types-discards-qualifiers",
 				"-Wno-pointer-sign",
 				"-Wno-switch",
-				"-Wno-macro-redefined"
+				"-Wno-macro-redefined",
+				"-Wno-unused-label",
 			}
 		else
 			buildoptions_c {
