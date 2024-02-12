@@ -28,6 +28,8 @@ altos/altos5.cpp
 altos/altos8600.cpp
 amiga/amiga.cpp
 amirix/wxstar4000.cpp
+ampex/ampex.cpp
+ampex/ampex210.cpp
 ampro/ampro.cpp
 ampro/lb186.cpp
 ampro/lbpc.cpp
@@ -469,6 +471,7 @@ mera/konin.cpp
 mera/m79152pc.cpp
 mera/vdm7932x.cpp
 mg1/mg1.cpp
+microcraft/dim68k.cpp
 microkey/primo.cpp
 microsoft/jazz.cpp
 microsoft/xbox.cpp
@@ -527,6 +530,7 @@ ncd/ncd68k.cpp
 ncd/ncd88k.cpp
 ncd/ncdmips.cpp
 ncd/ncdppc.cpp
+ncr/dmv.cpp
 nec/apc.cpp
 nec/bungo.cpp
 nec/ews4800.cpp
@@ -787,8 +791,6 @@ skeleton/alfaskop41xx.cpp
 skeleton/alphasma.cpp
 skeleton/alphasma3k.cpp
 skeleton/am1000.cpp
-skeleton/ampex.cpp
-skeleton/ampex210.cpp
 skeleton/argox.cpp
 skeleton/attache.cpp
 skeleton/ax20.cpp
@@ -830,9 +832,7 @@ skeleton/digijet.cpp
 skeleton/digilog320.cpp
 skeleton/digilog400.cpp
 skeleton/digitech_gsp5.cpp
-skeleton/dim68k.cpp
 skeleton/dm7000.cpp
-skeleton/dmv.cpp
 skeleton/dps1.cpp
 skeleton/dsb46.cpp
 skeleton/dual68.cpp
@@ -980,7 +980,6 @@ skeleton/vectrix.cpp
 skeleton/vp415.cpp
 skeleton/vp60.cpp
 skeleton/vsmilepro.cpp
-skeleton/wicat.cpp
 skeleton/xbase09.cpp
 skeleton/xor100.cpp
 skeleton/zeebo_qualcomm_adreno130.cpp
@@ -1246,6 +1245,7 @@ wang/wangpc.cpp
 wavemate/bullet.cpp
 wavemate/jupiter.cpp
 westinghouse/testconsole.cpp
+wicat/wicat.cpp
 wyse/wy100.cpp
 wyse/wy150.cpp
 wyse/wy30p.cpp
