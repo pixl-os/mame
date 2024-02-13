@@ -569,7 +569,7 @@ VAES_COMPAT_STUB (AesCtr_Code_HW)
       #define USE_HW_AES
     #endif
   #endif
-
+#undef USE_HW_AES
 #ifdef USE_HW_AES
 
 // #pragma message("=== AES HW === ")
