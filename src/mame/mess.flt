@@ -171,9 +171,8 @@ conitec/prof180x.cpp
 conitec/prof80.cpp
 cromemco/c10.cpp
 cromemco/mcb216.cpp
-cxg/ch2001.cpp
+cxg/chess2001.cpp
 cxg/dominator.cpp
-cxg/scptchess.cpp
 cxg/sphinx40.cpp
 cybiko/cybiko.cpp
 dai/dai.cpp
@@ -584,7 +583,6 @@ novag/micro.cpp
 novag/micro2.cpp
 novag/savant.cpp
 novag/sexpert.cpp
-novag/snova.cpp
 novation/basssta.cpp
 novation/drumsta.cpp
 olivetti/m20.cpp
