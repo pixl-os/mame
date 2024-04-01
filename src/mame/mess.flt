@@ -16,6 +16,9 @@ act/apxen.cpp
 act/victor9k.cpp
 adc/super6.cpp
 adc/superslave.cpp
+adds/4000_260.cpp
+adds/adds2020.cpp
+adds/vp60.cpp
 agat/agat.cpp
 akai/akaiax80.cpp
 akai/akaivx600.cpp
@@ -143,7 +146,6 @@ chess/conic_cchess2.cpp
 chess/conic_cchess3.cpp
 chess/regence.cpp
 chess/tasc.cpp
-chess/yeno_532xl.cpp
 chromatics/cgc7900.cpp
 citoh/cit101.cpp
 citoh/cit101xl.cpp
@@ -780,7 +782,6 @@ skeleton/aaa.cpp
 skeleton/acd.cpp
 skeleton/aceex.cpp
 skeleton/adacp150.cpp
-skeleton/adds2020.cpp
 skeleton/aid80f.cpp
 skeleton/airbase99.cpp
 skeleton/alcat7100.cpp
@@ -976,7 +977,6 @@ skeleton/vd56sp.cpp
 skeleton/vector3.cpp
 skeleton/vectrix.cpp
 skeleton/vp415.cpp
-skeleton/vp60.cpp
 skeleton/vsmilepro.cpp
 skeleton/xbase09.cpp
 skeleton/xor100.cpp
