@@ -757,7 +757,13 @@ void retro_osd_interface::process_mouse_state(running_machine &machine)
 			{
 				int cx = -1, cy = -1;
 				if (window != nullptr && window->renderer().xy_to_render_target(vmx, vmy, &cx, &cy))
-					machine.ui_input().push_mouse_move_event(window->target(), cx, cy);
+					machine.ui_input().push_pointer_update(
+							window->target(),
+							osd::ui_event_handler::pointer::MOUSE,
+							i,
+							0,
+							cx, cy,
+							0, 0, 0, 0);
 			}
 
 			ovmx = vmx;
@@ -773,19 +779,31 @@ void retro_osd_interface::process_mouse_state(running_machine &machine)
 			if (i == 0)
 			{
 				int cx = -1, cy = -1;
-
 				if (window != nullptr && window->renderer().xy_to_render_target(vmx, vmy, &cx, &cy))
 				{
 					auto const double_click_speed = std::chrono::milliseconds(250);
 					auto const click = std::chrono::steady_clock::now();
-					machine.ui_input().push_mouse_down_event(window->target(), cx, cy);
+
+					machine.ui_input().push_pointer_update(
+							window->target(),
+							osd::ui_event_handler::pointer::MOUSE,
+							i,
+							0,
+							cx, cy,
+							1, 1, 0, 1);
 
 					if (click < (m_last_click_time + double_click_speed)
 						&& (cx >= (m_last_click_x - 4) && cx <= (m_last_click_x + 4))
 						&& (cy >= (m_last_click_y - 4) && cy <= (m_last_click_y + 4)))
 					{
 						m_last_click_time = std::chrono::time_point<std::chrono::steady_clock>::min();
-						machine.ui_input().push_mouse_double_click_event(window->target(), cx, cy);
+						machine.ui_input().push_pointer_update(
+								window->target(),
+								osd::ui_event_handler::pointer::MOUSE,
+								i,
+								0,
+								cx, cy,
+								1, 1, 1, 2);
 					}
 					else
 					{
@@ -804,95 +822,55 @@ void retro_osd_interface::process_mouse_state(running_machine &machine)
 			{
 				int cx = -1, cy = -1;
 				if (window != nullptr && window->renderer().xy_to_render_target(vmx, vmy, &cx, &cy))
-					machine.ui_input().push_mouse_up_event(window->target(), cx, cy);
+					machine.ui_input().push_pointer_update(
+						window->target(),
+						osd::ui_event_handler::pointer::MOUSE,
+						i,
+						0,
+						cx, cy,
+						0, 0, 1, 0);
 			}
 		}
 
 		if (!mousestate[i].button[MOUSE_RIGHT] && mouse_r)
-		{
 			mousestate[i].button[MOUSE_RIGHT] = 0x80;
-
-			if (i == 0)
-			{
-				int cx = -1, cy = -1;
-				if (window != nullptr && window->renderer().xy_to_render_target(vmx, vmy, &cx, &cy))
-					machine.ui_input().push_mouse_rdown_event(window->target(), cx, cy);
-			}
-		}
 		else if (mousestate[i].button[MOUSE_RIGHT] && !mouse_r)
-		{
 			mousestate[i].button[MOUSE_RIGHT] = 0;
 
-			if (i == 0)
-			{
-				int cx = -1, cy = -1;
-				if (window != nullptr && window->renderer().xy_to_render_target(vmx, vmy, &cx, &cy))
-					machine.ui_input().push_mouse_rup_event(window->target(), cx, cy);
-			}
-		}
-
 		if (!mousestate[i].button[MOUSE_MIDDLE] && mouse_m)
-		{
 			mousestate[i].button[MOUSE_MIDDLE] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_MIDDLE] && !mouse_m)
-		{
 			mousestate[i].button[MOUSE_MIDDLE] = 0;
-		}
 
 		if (!mousestate[i].button[MOUSE_4] && mouse_4)
-		{
 			mousestate[i].button[MOUSE_4] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_4] && !mouse_4)
-		{
 			mousestate[i].button[MOUSE_4] = 0;
-		}
 
 		if (!mousestate[i].button[MOUSE_5] && mouse_5)
-		{
 			mousestate[i].button[MOUSE_5] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_5] && !mouse_5)
-		{
 			mousestate[i].button[MOUSE_5] = 0;
-		}
 
 		if (!mousestate[i].button[MOUSE_WHEEL_UP] && mouse_wu)
-		{
 			mousestate[i].button[MOUSE_WHEEL_UP] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_WHEEL_UP] && !mouse_wu)
-		{
 			mousestate[i].button[MOUSE_WHEEL_UP] = 0;
-		}
 
 		if (!mousestate[i].button[MOUSE_WHEEL_DOWN] && mouse_wd)
-		{
 			mousestate[i].button[MOUSE_WHEEL_DOWN] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_WHEEL_DOWN] && !mouse_wd)
-		{
 			mousestate[i].button[MOUSE_WHEEL_DOWN] = 0;
-		}
 
 		if (!mousestate[i].button[MOUSE_WHEEL_LEFT] && mouse_wl)
-		{
 			mousestate[i].button[MOUSE_WHEEL_LEFT] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_WHEEL_LEFT] && !mouse_wl)
-		{
 			mousestate[i].button[MOUSE_WHEEL_LEFT] = 0;
-		}
 
 		if (!mousestate[i].button[MOUSE_WHEEL_RIGHT] && mouse_wr)
-		{
 			mousestate[i].button[MOUSE_WHEEL_RIGHT] = 0x80;
-		}
 		else if (mousestate[i].button[MOUSE_WHEEL_RIGHT] && !mouse_wr)
-		{
 			mousestate[i].button[MOUSE_WHEEL_RIGHT] = 0;
-		}
 	}
 }
 
@@ -1110,6 +1088,8 @@ public:
 
 	virtual void configure(input_device &device) override
 	{
+		input_device::assignment_vector assignments;
+
 		device.add_item(
 			"X",
 			std::string_view(),
@@ -1129,13 +1109,24 @@ public:
 
 			device.add_item(
 				mouse_button_name[button],
-                std::string_view(),
-                static_cast<input_item_id>(ITEM_ID_BUTTON1 + button),
-                generic_button_get_state<std::int32_t>,
-                &mousestate[mouse_count].button[button]);
-        }
+				std::string_view(),
+				static_cast<input_item_id>(ITEM_ID_BUTTON1 + button),
+				generic_button_get_state<std::int32_t>,
+				&mousestate[mouse_count].button[button]);
+		}
 
-        mouse_count++;
+		if (mouse_count == 0)
+		{
+			assignments.emplace_back(IPT_UI_SELECT, SEQ_TYPE_STANDARD, input_seq(MOUSECODE_BUTTON1_INDEXED(mouse_count)));
+			assignments.emplace_back(IPT_UI_BACK, SEQ_TYPE_STANDARD, input_seq(MOUSECODE_BUTTON2_INDEXED(mouse_count)));
+			assignments.emplace_back(IPT_UI_CLEAR, SEQ_TYPE_STANDARD, input_seq(MOUSECODE_BUTTON3_INDEXED(mouse_count)));
+			assignments.emplace_back(IPT_UI_PAGE_UP, SEQ_TYPE_STANDARD, input_seq(MOUSECODE_BUTTON6_INDEXED(mouse_count)));
+			assignments.emplace_back(IPT_UI_PAGE_DOWN, SEQ_TYPE_STANDARD, input_seq(MOUSECODE_BUTTON7_INDEXED(mouse_count)));
+
+			device.set_default_assignments(std::move(assignments));
+		}
+
+		mouse_count++;
 	}
 
 protected:
