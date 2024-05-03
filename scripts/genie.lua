@@ -1128,10 +1128,12 @@ end
 				}
 			end
 		else
+if _OPTIONS["osd"] ~= "retro" then
 			if version < 100300 then
 				print("GCC version 10.3 or later needed")
 				os.exit(-1)
 			end
+end
 			buildoptions_cpp {
 				"-Wimplicit-fallthrough",
 			}
