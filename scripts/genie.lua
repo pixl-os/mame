@@ -1143,14 +1143,17 @@ end
 			buildoptions {
 				"-Wno-error=unused-result", -- needed for fgets,fread on linux
 				-- array bounds checking seems to be buggy in 4.8.1 (try it on video/stvvdp1.c and video/model1.c without -Wno-array-bounds)
-				"-Wno-error=array-bounds",
+				"-Wno-array-bounds",
+				--"-Wno-error=array-bounds",
 				"-Wno-error=attributes", -- GCC fails to recognize some uses of [[maybe_unused]]
 				--"-Wno-error=stringop-truncation", -- ImGui again
-				"-Wno-stringop-overflow", -- generates false positives when assigning an int rvalue to a u8 variable without an explicit cast
+				--"-Wno-stringop-overflow", -- generates false positives when assigning an int rvalue to a u8 variable without an explicit cast
 			}
-			if version >= 100300 then
+			if version >= 80000 then
 				buildoptions {
+				    "-Wno-error=array-bounds",
 				    "-Wno-error=stringop-truncation", -- ImGui again
+				    "-Wno-stringop-overflow", -- generates false positives when assigning an int rvalue to a u8 variable without an explicit cast
 				}
 				buildoptions_cpp {
 					"-Wno-error=class-memaccess", -- many instances in ImGui and BGFX
