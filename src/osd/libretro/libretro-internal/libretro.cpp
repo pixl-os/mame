@@ -239,9 +239,6 @@ void retro_fastforwarding(bool enabled)
    libretro_ff_enabled        = enabled;
 
    environ_cb(RETRO_ENVIRONMENT_SET_FASTFORWARDING_OVERRIDE, &ff_override);
-
-   /* Maximize speed by maximizing frame-skip like MAME FF */
-   mame_machine_manager::instance()->machine()->video().set_frameskip((enabled) ? 10 : 0);
 }
 
 static int ff_counter_on  = 0;
