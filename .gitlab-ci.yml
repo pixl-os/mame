@@ -112,6 +112,19 @@ libretro-build-linux-x64:
     - .libretro-linux-x64-make-default
     - .core-defs
   image: $CI_SERVER_HOST:5050/libretro-infrastructure/libretro-build-amd64-ubuntu:latest
+  before_script:
+    - export NUMPROC=$(($(nproc)/5))
+    - sudo apt-get update -qy
+    - sudo apt-get install -qy software-properties-common
+    - sudo add-apt-repository -y ppa:savoury1/build-tools
+    - sudo add-apt-repository -y ppa:savoury1/gcc-defaults-12
+    - sudo apt-get update -qy
+    - sudo apt-get install -qy gcc-12 g++-12
+  # This container's existing installations of gcc and CMake are way too old
+  variables:
+    OVERRIDE_CC: /usr/bin/gcc-12
+    OVERRIDE_CXX: /usr/bin/g++-12
+    CXXFLAGS: -Wno-deprecated-declarations # Deprecation warnings aren't helpful on the libretro Gitlab
   cache:
     <<: *global_cache
   only:
@@ -124,6 +137,19 @@ libretro-build-linux-i686:
     - .libretro-linux-i686-make-default
     - .core-defs
   image: $CI_SERVER_HOST:5050/libretro-infrastructure/libretro-build-i386-ubuntu:latest
+  before_script:
+    - export NUMPROC=$(($(nproc)/5))
+    - sudo apt-get update -qy
+    - sudo apt-get install -qy software-properties-common
+    - sudo add-apt-repository -y ppa:savoury1/build-tools
+    - sudo add-apt-repository -y ppa:savoury1/gcc-defaults-12
+    - sudo apt-get update -qy
+    - sudo apt-get install -qy gcc-12 g++-12
+  # This container's existing installations of gcc and CMake are way too old
+  variables:
+    OVERRIDE_CC: /usr/bin/gcc-12
+    OVERRIDE_CXX: /usr/bin/g++-12
+    CXXFLAGS: -Wno-deprecated-declarations # Deprecation warnings aren't helpful on the libretro Gitlab
   cache:
     <<: *global_cache
   only:
