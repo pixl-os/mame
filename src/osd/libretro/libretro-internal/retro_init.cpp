@@ -98,7 +98,7 @@ static const char* xargv_cmd[64];
 int PARAMCOUNT = 0;
 
 // path configuration
-#define NB_OPTPATH 13
+#define NB_OPTPATH 14
 
 static const char *dir_name[NB_OPTPATH] =
 {
@@ -115,6 +115,7 @@ static const char *dir_name[NB_OPTPATH] =
    "ini",
    "plugins",
    "samples",
+   "crosshair",
    ""
 };
 
@@ -133,6 +134,7 @@ static const char *opt_name[NB_OPTPATH] =
     "-inipath",
     "-pluginspath",
     "-samplepath",
+    "-crosshairpath",
     "-homepath"
 };
 
@@ -140,7 +142,7 @@ int opt_type[NB_OPTPATH] =
 {
    // 0 for save_dir | 1 for system_dir
    0,0,0,0,0,0,
-   1,1,1,1,1,1,1
+   1,1,1,1,1,1,1,1
 };
 
 //============================================================
